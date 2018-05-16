@@ -1,0 +1,86 @@
+/*菜单-设置文件编码-utf-8*/
+@charset "UTF-8";
+/*1.清除默认样式*/
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, img, input{ margin:0; padding:0; }
+img,input,button { border:0 none; padding:0;margin:0;outline-style:none; }
+ul, ol { list-style:none; }
+select, input { vertical-align:middle;}
+textarea { resize:none; }
+img{border:0; vertical-align:middle; display:block;}
+table { border-collapse:collapse; }
+
+
+/*2.添加公共样式*/
+.clearfix::before,.clearfix::after {
+    content:"";
+    display:table;
+}
+.clearfix::after{clear:both;}
+
+a {color:#666; text-decoration:none; }
+/*h1,h2,h3,h4,h5,h6 {text-decoration:none;font-weight:normal;font-size:1em;}*/
+s,i,em{font-style:normal;text-decoration:none;}
+
+
+/*公共类*/
+.container {
+    width: 1100px;
+    margin:0 auto;
+}
+.fl {
+    float:left;
+}
+.fr {
+    float:right;
+}
+.al {
+    text-align:left;
+}
+.ac {
+    text-align:center;
+}
+.ar {
+    text-align:right;
+}
+.hide {
+    display:none;
+}
+
+
+/*页面的公共部分*/
+#GD{min-width:1100px;}
+
+/*头部导航栏*/
+#GD_nav{background: #646464;}
+.fixed{position:fixed;top:0;left:0;right:0;z-index: 100;}
+#GD_nav h1{width: 300px;padding: 20px 0 0 70px;height: 60px;font-size: 22px;color:#F58220;font-family: 'Microsoft YaHei', sans-serif; margin-left: 30px;background: url(../images/GDlogo.png) no-repeat 0 center;}
+#GD_nav h1 span{display: block;font-size: 12px;color:#fff;}
+#GD_nav ul{width: 580px;}
+#GD_nav li{float: left;}
+#GD_nav a{display: block;}
+#GD_nav a span{display:inline-block;line-height: 40px;font-size: 18px; padding:0 18px;color:#fff;border-right: 1px solid #EEEEEE;text-align: center;margin: 20px 0;}
+#GD_nav a:last-child span{border-right: 0 none;}
+#GD_nav li:hover a{background: #F58220;}
+
+
+/*底部版权信息*/
+#GD_footer{background: #121212;text-align: center;padding: 10px 0;}
+#GD_footer p{font-size: 12px;color: #fff;line-height: 24px;}
+
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('../font/iconfont.eot');
+  src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../font/iconfont.woff') format('woff'),
+  url('../font/iconfont.ttf') format('truetype'),
+  url('../font/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont{
+  font-family:"iconfont" !important;
+  font-size:16px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}

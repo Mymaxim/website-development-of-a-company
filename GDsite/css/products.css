@@ -1,0 +1,17 @@
+
+#pd{height: 300px;border-bottom: 1px solid #ccc;background: url(../images/prod0.jpg) no-repeat center 0;}
+.main{padding: 30px 0 40px 0;box-sizing: border-box;}
+.main .bg{height: 900px;background-color: #f8f8f8;}
+.main .menu p{line-height: 68px;width: 200px;text-align: center;color:#333;font-size: 22px;background-color: #646363;color:#f9f9f9;} 
+.main .menu ul li {width: 200px;line-height: 46px;text-align: center;cursor: pointer;}
+.main .menu ul li:last-child{margin-bottom: 30px;}
+.main .menu ul  .active{background: #F58220;color:#fff;cursor: default;}
+
+.main .content{margin-bottom: 30px;}
+.main .content ul{width:810px;border:1px solid #ccc;padding-bottom: 20px;}
+.main .content ul li{float: left;margin:20px 0 0 20px;border:1px solid #ddd;}
+.main .content ul li img{padding: 5px;}
+.main .content ul p{;height: 30px;line-height: 30px;text-align: center;}
+.main .content .page{width: 200px;padding-top: 20px;}
+.main .content .page span{display: inline-block;width: 30px;height: 30px;text-align: center;line-height: 30px;margin-right: 5px;color:#fff;background-color: #ccc;cursor: pointer;}
+.main .content .page .active{background-color: #F58220;}

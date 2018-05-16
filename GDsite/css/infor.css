@@ -1,0 +1,14 @@
+#ban{height: 300px;background:url(../images/infor.jpg) no-repeat center 0;}
+#Info_main{padding: 20px 0;} 
+.mLeft{width: 810px;}
+.mLeft .cont{border:1px solid #ddd;margin-bottom: 10px;}
+/*.mLeft .cont:nth-child(even){margin-right: 0;}*/
+.mLeft .cont h3{line-height: 34px;font-size: 16px;font-weight: normal; color:#fff;padding-left: 10px;border-bottom: 1px solid #ddd;margin-bottom: 5px;background-color: #646363;}
+.mLeft .cont p{width: 380px;line-height: 26px;font-size: 12px;color:#999;padding:0 10px;border-bottom: 1px dashed #ddd;cursor:pointer;}
+.mLeft .cont p:hover{text-decoration: underline;}
+.mLeft .cont p:last-child{border-bottom:0 none;}
+.mLeft .cont p span{display: inline-block;float: right;color:#666;}
+.mRight .side{border:1px solid #ddd;margin-bottom: 10px;}
+.mRight .side h3{background-color: #333;color:#fff;line-height: 30px;font-size: 14px;padding-left: 10px;}
+.mRight .side li{width: 260px;height: 28px;padding-left: 10px;font-size: 12px;line-height: 26px;color:#666;overflow: hidden;cursor:pointer;}
+.mRight .side li:hover{color:#F58220;}

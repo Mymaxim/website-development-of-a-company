@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>登录</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<script src="js/jquery-3.1.0.min.js"></script>
+		<style type="text/css">
+			body {
+				color: #fff;
+				position: relative;
+				margin:0;
+				background: #006a83;
+			}
+			
+			a {
+				text-decoration: none;
+				color: #666666;
+			}
+			
+			a:hover {
+				text-decoration: none;
+			}
+			
+			.form {
+				height: 280px;
+				margin: 60px auto;
+				padding: 20px;
+				background: #6db3be;
+			}
+			
+			.login {
+				width: 54px;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<h1 style="text-align:center;margin-top:80px;">格调苗木花卉有限公司网站后台管理系统</h1>
+			<div class="row main">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4 form">
+					<h3 style="text-align:center;margin-bottom:20px;">登录系统</h3>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="userid" class="col-sm-2 control-label">账号</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="userid" placeholder="请输入管理员账号">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="password" class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control" id="pwd" placeholder="请输入密码">
+							</div>
+						</div>
+						<div class="login">
+							<button type="button" class="btn btn-default" id="login">登录</button>								
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-4"></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	$(function(){
+		$('#login').on('click',function() {
+		var userid = $('#userid').val();
+		var password = $('#pwd').val();
+			if(userid.length>0 && password.length>0){
+				$.post('../api/login.php',{name:userid,pwd:password},function(res){
+					if(res = 'success'){
+						document.cookie = 'user=' + userid + ';path=/';
+						window.location.href = 'home.html';
+					}else{
+						alert('用户名或密码错误')
+					}
+				});
+			}else{
+				alert('请正确输入用户名和密码')
+			}
+		})
+	})
+	</script>
+
+</html>

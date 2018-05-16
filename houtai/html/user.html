@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css" />
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap-table.min.js"></script>
+    <script src="../js/bootstrap-table-zh-CN.js"></script>
+    <script src="../js/bootstrap-table-locale-all.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2><i class = "fa fa-picture-o"></i> 用户管理</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive table-bordered">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                       <!--  <th><input type="checkbox"></th> -->
+                                        <th>ID</th>
+                                        <th>用户名</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>1</td>
+                                        <td>123</td>
+                                        <td>
+                                            <button class="btn btn-warning">编辑</button>
+                                            <button class="btn btn-primary">删除</button>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $.post('../api/user.php',function(res){
+                var res = JSON.parse(res);
+                console.log(res);
+                $('tbody').append(res.map(function(item){
+                    return `<tr class="${item.id}">
+                                <td>${item.id}</td>
+                                <td>${item.username}</td>
+                                <td><button class="btn btn-primary">删除</button></td>
+                            </tr>`
+                }))
+            })
+            
+            //确认删除函数
+            function confirmDel() { 
+                var msg = "您确定要删除该产品吗"; 
+                if (confirm(msg)){ 
+                  return true; 
+                }else{ 
+                  return false; 
+                } 
+            }
+            $('tbody').on('click','td>.btn-primary',function(){
+                var res = confirmDel();
+                if(res){
+                    $(this).parent().parent().remove();
+                    let idx = $(this).parent().parent()[0].className*1;
+                    $.post('../api/user.php',{idx:idx})
+                }
+            })
+            
+        }); 
+    </script>   
+</body>
+</html>

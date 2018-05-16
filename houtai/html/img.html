@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>轮播图管理</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap-table.min.js"></script>
+    <script src="../js/bootstrap-table-zh-CN.js"></script>
+    <script src="../js/bootstrap-table-locale-all.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2><i class = "fa fa-picture-o"></i> 轮播图管理</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive table-bordered">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <!-- <th><input type="checkbox"> 全选</th> -->
+                                        <th>ID</th>
+                                        <!-- <th>图片</th> -->
+                                        <th>图片链接</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>1</td>
+                                        <td>图片大小</td>
+                                        <td>../img/banner1.jpg</td>
+                                        <td>
+                                            <button class="btn btn-warning">编辑</button>
+                                            <button class="btn btn-primary">删除</button>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">操作</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST" class="form-horizontal" role="form">
+                        <!-- <div class="form-group">
+                            <label for="modal-img" class="col-sm-2 control-label">图片</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="file_input" name="img">
+                                <div id="showimg" style="height:150px;width:150px;">
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="modal-url" class="col-sm-2 control-label">图片地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="modal-url">  
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $.post('../api/img.php',function(data){
+            var res = JSON.parse(data);
+            $('tbody').append(res.map(function(item){
+                return `<tr class="${item.id}">
+                            <td>${item.id}</td>
+                            <td>${item.banner}</td>
+                            <td><button class="btn btn-warning">编辑</button>
+                            <button class="btn btn-primary">删除</button></td>
+                        </tr>`
+            }))
+        })
+
+            // let a = true;
+            // let b = true;
+            function confirmDel(){ 
+                var msg = "您确定要删除这知识吗"; 
+                if (confirm(msg)){ 
+                  return true; 
+                }else{ 
+                  return false; 
+                } 
+            }
+            $('tbody').on('click','td>.btn-primary',function(){
+                let idx = $(this).parent().parent()[0].className*1; 
+                console.log(idx);
+                let res = confirmDel();
+                if(res){
+                    $(this).parent().parent().remove();
+
+                    $.post('../api/img.php',{idx:idx}); 
+                }
+            })
+            $('tbody').on('click','td>.btn-warning',function(){
+                $('#myModal').modal('show');
+                var tds = $(this).parent().parent().children();
+                console.log('tds')
+                // var name = tds.eq(1).text();
+                var url = tds.eq(1).text();
+                $('#modal-name').val(name)
+                $('#modal-url').val(url)
+                $('#myModal').data({'tds':tds})
+            });
+
+            $('.modal-footer>.btn-primary').click(function(){
+                $("#myModal").modal('hide')
+                // var name = $('#modal-name').val();
+                var url = $('#modal-url').val();
+                var tds = $("#myModal").data('tds')
+                console.log('tds')
+                if(tds === undefined){
+                    var trCreate = document.createElement("tr");
+                    // $(trCreate).append('<td>' + "<input type='checkbox'>" +'</td>');
+                    // $(trCreate).append('<td>' + ($('tbody tr').length + 1) +'</td>');
+                    // $(trCreate).append('<td>'+ name + '</td>');
+                    $(trCreate).append('<td>'+ url + '</td>');
+                    $(trCreate).append(`<td>
+                                        <button class="btn btn-warning">编辑</button>
+                                        <button class="btn btn-primary">删除</button>
+                                    </td>`);
+                    $('tbody').append(trCreate)
+                    $(".modal-backdrop").fadeOut('fast');
+                    // if(!a){
+                    //     $("tbody td:nth-child(1)").fadeIn("fast");
+                    //     $("tbody td:nth-child(6)").fadeIn("fast");
+                    // }
+                }else{
+                    // tds.eq(1).text(name)
+                    tds.eq(1).text(url)
+                    $("#myModal").removeData('tds')
+                }           
+            });
+
+            // $("thead th input:nth-child(1)").click(function(){
+            //     if(b){
+            //         $("tbody td input:nth-child(1)").each(function() {
+            //             $(this).prop('checked', true);
+            //         });
+            //         b = false;
+            //     }else{
+            //         $("tbody td input:nth-child(1)").each(function() {
+            //             $(this).prop('checked', false);
+            //         });
+            //         b = true;
+            //     }
+            // });
+        }); 
+    </script>   
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>评论管理</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
+    <!-- <script src="../js/jquery.min.js"></script> -->
+    <script src="../js/jquery-3.1.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap-table.min.js"></script>
+    <script src="../js/bootstrap-table-zh-CN.js"></script>
+    <script src="../js/bootstrap-table-locale-all.min.js"></script>
+    <style>
+        .my-table-tool{margin-bottom:30px;}
+        .btn-info{margin-top: 2px;}
+        .panel-title {
+            margin-top: 20px;
+            font-size: 25px;
+            color: #666666;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 main">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><i class = "fa fa-commenting"></i> 评论管理</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row my-table-tool">
+                        <div class="col-md-12">
+                            <div class="btn-group" id="toolBar" role = "group">
+                                <!-- <button type="button" id="btn_edit" class="btn btn-outline btn-default"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button type="button" id="btn_add" class="btn btn-outline btn-default"><i class="glyphicon glyphicon-plus"></i></button> -->
+                               <!--  <button type="button" id="btn_trash" class="btn btn-outline btn-default"><i class="glyphicon glyphicon-trash"></i></button>
+                                <input type="text" class="form-control" placeholder="搜索" style="display:inline-block; width:200px; height:30px; margin-left:10px;"> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive table-bordered">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <!-- <th><input type="checkbox"></th> -->
+                                    <th>序号</th>
+                                    <th>主题ID</th>
+                                    <th>内容</th>
+                                    <th>用户</th>
+                                    <th>时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>1</td>
+                                    <td>456</td>
+                                    <td>123456</td>
+                                    <td>123</td>
+                                    <td>
+                                        <button class="btn btn-warning">编辑</button>
+                                        <button class="btn btn-primary">删除</button>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $.post('../api/comment.php',function(data){
+            var res = JSON.parse(data);
+            console.log(res);
+            $('tbody').append(res.map(function(item){
+                return `<tr class="${item.id}">
+                            <td>${item.id}</td>
+                            <td>${item.theme_id}</td>
+                            <td>${item.content}</td>
+                            <td>${item.time}</td>
+                            <td>${item.user}</td>
+                            <td><button class="btn btn-primary">删除</button></td>
+                        </tr>`
+            }))
+        })
+
+        let a = true;
+        let b = true;
+        //确认删除函数
+        function confirmDel(){ 
+            var msg = "您确定要删除这评论吗"; 
+            if (confirm(msg)){ 
+              return true; 
+            }else{ 
+              return false; 
+            } 
+        }
+        $('tbody').on('click','td>.btn-primary',function(){
+            let res = confirmDel();
+            if(res){
+                $(this).parent().parent().remove(); 
+                let idx = $(this).parent().parent()[0].className*1; 
+                console.log(idx);
+                $.post('../api/comment.php',{idx:idx}); 
+            }
+        })
+        $("thead th input:nth-child(1)").click(function(){
+            if(b){
+                $("tbody td input:nth-child(1)").each(function() {
+                    $(this).prop('checked', true);
+                });
+                b = false;
+            }else{
+                $("tbody td input:nth-child(1)").each(function() {
+                    $(this).prop('checked', false);
+                });
+                b = true;
+            }
+        });
+        $("#btn_trash").click(function(){
+            let res = confirmDel();
+            if(res){
+                $("tbody td input:nth-child(1)").each(function() {
+                    if($(this).prop('checked'))
+                        $(this).parent().parent().remove();
+                        $.post('../api/comment.php',{all:"all"})
+                });
+            }    
+        });
+    }); 
+</script>   
+</body>
+</html>

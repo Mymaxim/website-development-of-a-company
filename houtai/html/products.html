@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>产品管理</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
+    <!-- <script src="../js/jquery.min.js"></script> -->
+    <script src="../js/jquery-3.1.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap-table.min.js"></script>
+    <script src="../js/bootstrap-table-zh-CN.js"></script>
+    <script src="../js/bootstrap-table-locale-all.min.js"></script>
+    <style>
+        .my-table-tool{margin-bottom:30px;}
+        .btn-info{margin-top: 2px;}
+        .panel-title {
+            margin-top: 20px;
+            font-size: 25px;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 main">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><i class = "fa fa-shopping-cart"></i> 产品管理</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row my-table-tool">
+                        <div class="col-md-12">
+                            <div class="btn-group" id="toolBar" role = "group">
+                                <button type="button" id="btn_add" class="btn btn-outline btn-default"><i class="glyphicon glyphicon-plus"></i></button>
+                                <button type="button" id="btn_trash" class="btn btn-outline btn-default"><i class="glyphicon glyphicon-trash"></i></button>
+                                <input type="text" class="form-control" placeholder="搜索" style="display:inline-block; width:200px; height:30px; margin-left:10px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive table-bordered">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                     <th><input type="checkbox"></th>
+                                    <th data-field = "id">ID</th>
+                                    <th data-field = "lb" class="two2">
+                                        <select  style="border:none;outline:none;">
+                                             <option value="常绿乔木">全部分类</option>
+                                             <option value="常绿乔木" id="c1">常绿乔木</option>
+                                             <option value="常绿灌木" id="c2">常绿灌木</option>
+                                             <option value="落叶乔木" id="c3">落叶乔木</option>
+                                             <option value="落叶灌木" id="c4">落叶灌木</option>
+                                             <option value="彩叶苗木" id="c5">彩叶苗木</option>
+                                             <option value="球类苗木" id="c6">球类苗木</option>
+                                             <option value="观赏花卉" id="c7">观赏花卉</option>
+                                             <option value="水培花卉" id="c8">水培花卉</option>
+                                             <option value="地被花卉" id="c9">地被花卉</option>
+                                             <option value="多肉盆栽" id="c10">多肉盆栽</option>
+                                       </select>
+                                    </th>
+                                    <th data-field = "mc">名称</th>
+                                    <!-- <th data-field = "tu">图片</th> -->
+                                    <th data-field = "nr">图片链接</th>
+                                    <th data-field = "operate" data-formatter = "operateFormatter" data-events = "operateEvents">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">操作</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST" class="form-horizontal" role="form">
+                         <div class="form-group">
+                            <label for="modal-id" class="col-sm-2 control-label">ID</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="modal-id" placeholder="请输入ID">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-lb" class="col-sm-2 control-label">类别</label>
+                            <div class="col-sm-10">
+                                <select id="modal-lb" class="form-control" required="required">
+                                     <!-- <option value="常绿乔木">全部分类</option> -->
+                                     <option value="常绿乔木" id="c1">常绿乔木</option>
+                                     <option value="常绿灌木" id="c2">常绿灌木</option>
+                                     <option value="落叶乔木" id="c3">落叶乔木</option>
+                                     <option value="落叶灌木" id="c4">落叶灌木</option>
+                                     <option value="彩叶苗木" id="c5">彩叶苗木</option>
+                                     <option value="球类苗木" id="c6">球类苗木</option>
+                                     <option value="观赏花卉" id="c7">观赏花卉</option>
+                                     <option value="水培花卉" id="c8">水培花卉</option>
+                                     <option value="地被花卉" id="c9">地被花卉</option>
+                                     <option value="多肉盆栽" id="c10">多肉盆栽</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-mc" class="col-sm-2 control-label">名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="modal-name" placeholder="请输入名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-nr" class="col-sm-2 control-label">图片链接</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="modal-url" placeholder="请输入链接">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="modal-tu" class="col-sm-2 control-label">图片</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="modal-tu" name="img">
+                            </div>
+                        </div> -->
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $(document).ready(function(){
+        $.post('../api/products.php',function(data){
+            var res = JSON.parse(data);
+            console.log(res);
+            $('tbody').append(res.map(function(item){
+                return `<tr class="${item.id}">
+                            <td><input type="checkbox"></td>
+                            <td>${item.id}</td>
+                            <td>${item.type}</td>
+                            <td>${item.name}</td>
+                            <td>${item.img}</td>
+                            <td><button class="btn btn-warning">编辑</button>
+                            <button class="btn btn-primary">删除</button></td>
+                        </tr>`
+            }))
+        })
+        let a = true;
+        let b = true;
+
+        //确认删除函数
+        function confirmDel(){ 
+            var msg = "您确定要删除该产品吗"; 
+            if (confirm(msg)){ 
+              return true; 
+            }else{ 
+              return false; 
+            } 
+        }
+        $('tbody').on('click','td>.btn-primary',function(){
+            var res = confirmDel();
+            if(res){
+                $(this).parent().parent().remove();
+                let idx = $(this).parent().parent()[0].className*1; 
+                console.log(idx);
+                $.post('../api/products.php',{idx:idx});
+            }   
+        })
+        $('tbody').on('click','td>.btn-warning',function(){
+            $('#myModal').modal('show');
+            var tds = $(this).parent().parent().children();
+            var id = tds.eq(1).text();
+            var sort = tds.eq(2).val();
+            // console.log(tds.eq(1).text());
+            var name = tds.eq(3).text();
+            var url = tds.eq(4).text();
+            $('modal-id').val(id)
+            $('modal-lb').val(sort)
+            $('#modal-name').val(name)
+            $('#modal-url').val(url);
+            $('#myModal').data({'tds':tds})
+        });
+
+        $('.modal-footer>.btn-primary').click(function(){
+            $("#myModal").modal('hide')
+            var id = $('#modal-id').val();
+            var sort = $('#modal-lb').val();
+            console.log(sort);
+            var name = $('#modal-name').val();
+            var url = $('#modal-url').val();
+            var tds = $("#myModal").data('tds')
+            // console.log('tds')
+            if(tds === undefined){
+                var trCreate = document.createElement("tr");
+                $(trCreate).append('<td>' + "<input type='checkbox'>" +'</td>');
+                $(trCreate).append('<td>' + id +'</td>');
+                $(trCreate).append('<td>'+ sort + '</td>');
+                $(trCreate).append('<td>'+ name + '</td>');
+                $(trCreate).append('<td>'+ url + '</td>');
+                $(trCreate).append(`<td>
+                                    <button class="btn btn-warning">编辑</button>
+                                    <button class="btn btn-primary">删除</button>
+                                </td>`);
+                $('tbody').append(trCreate)
+                $(".modal-backdrop").fadeOut('fast');
+                // if(!a){
+                //     $("tbody td:nth-child(1)").fadeIn("fast");
+                //     $("tbody td:nth-child(6)").fadeIn("fast");
+                // }
+            }
+            // else{
+            //     tds.eq(1).text(id)
+            //     tds.eq(2).text(sort)
+            //     tds.eq(3).text(name)
+            //     tds.eq(4).text(url)
+            //     $("#myModal").removeData('tds')
+            // }           
+        });
+
+        $("#btn_add").click(function() {
+            $('#myModal').modal('show');
+            $("#myModal input").val("");
+        });
+        
+        // $("#btn_edit").click(function(){
+            
+        //     if(a){
+        //         $("thead th:nth-child(1)").fadeIn("fast");
+        //         $("tbody td:nth-child(1)").fadeIn("fast");
+        //         $("thead th:nth-child(6)").fadeIn("fast");
+        //         $("tbody td:nth-child(6)").fadeIn("fast");
+        //         $("#btn_add").fadeIn('fast');
+        //         $("#btn_trash").fadeIn('fast');
+        //         a = false;
+        //     }else{
+        //         $("thead th:nth-child(1)").fadeOut("fast");
+        //         $("tbody td:nth-child(1)").fadeOut("fast");
+        //         $("thead th:nth-child(6)").fadeOut("fast");
+        //         $("tbody td:nth-child(6)").fadeOut("fast");
+        //         $("#btn_add").fadeOut('fast');
+        //         $("#btn_trash").fadeOut('fast');
+        //         a = true;
+        //     }
+        // });
+        $("thead th input:nth-child(1)").click(function(){
+            if(b){
+                $("tbody td input:nth-child(1)").each(function() {
+                    $(this).prop('checked', true);
+                });
+                b = false;
+            }else{
+                $("tbody td input:nth-child(1)").each(function() {
+                    $(this).prop('checked', false);
+                });
+                b = true;
+            }
+        });
+        $("#btn_trash").click(function(){
+            let res = confirmDel();
+            if(res){
+                $("tbody td input:nth-child(1)").each(function() {
+                if($(this).prop('checked'))
+                    $(this).parent().parent().remove();
+                    $.post('../api/products.php',{all:"all"});
+                });
+            }
+            
+        });
+    }); 
+</script>   
+</body>
+</html>

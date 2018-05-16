@@ -1,0 +1,205 @@
+.clear:after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+body {
+	position: relative;
+}
+
+a {
+	color: #fff;
+}
+
+a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+
+.nav-top {
+	/*background: #8c8c8c;*/
+	border: none;
+	border-bottom: 1px solid #c9aa5f;
+	border-radius: 0;
+	margin-bottom: 0;
+	background: #fecbba;
+}
+
+.navbar-tittle {
+	padding: 15px;
+}
+
+.myUser{
+	position: relative;
+}
+.down{
+	position: absolute;
+	right: 0;
+	font-size: 12px;
+}
+.sidebar-toggle-box {
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.logo a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.login a {
+	color: #6db3be;
+}
+
+.log{
+	position: relative;
+}
+
+.logo img{
+	display: inline-block;
+	position: absolute;
+	top:10px;
+}
+.logo b{
+	padding-left: 24px;
+	font-size: 18px;
+}
+
+i {
+	margin-right: 5px;
+}
+
+.navbar-main {
+	margin-left: 210px;
+}
+
+.navbar-main .form-control {
+	border-radius: 50px;
+}
+
+.navbar-right {
+	margin: 10px;
+}
+
+.logout a {
+	color: #6db3be;
+}
+
+
+.main {
+	margin: 0;
+	margin-top: 50px;
+}
+
+.navbar-side {
+	position: fixed;
+	width: 200px;
+	height: 100%;
+	background: #006a83;
+	border: none;
+	border-radius: 0;
+	/*padding-top: 50px;*/
+}
+
+.navbar-side a {
+	color: #fff;
+}
+
+.logo-picture {
+	width: 86px;
+	margin: 30px auto 10px auto;
+}
+
+.logo-picture img {
+	width: 86px;
+	height: 45px;
+}
+
+.sidebar-collapse>ul>li {
+	margin: 5px;
+}
+
+.sidebar-collapse li.active {
+	background: #6db3be;
+}
+
+/*.line{
+	height: 2px;
+	background-color: #fff;
+}*/
+.dropdown li {
+	background: #006a83;
+}
+
+.navbar-side .sidebar-collapse>ul>li>a:focus,
+.navbar-side .sidebar-collapse>ul>li>a:hover {
+	background: #6db3be;
+}
+
+
+.dropdown li>a:focus,
+.dropdown li>a:hover {
+	font-size: 16px;
+	background: #006a83;
+}
+
+#content-main {
+    height: calc(100% - 50px);
+    overflow: hidden;
+}
+
+.J_mainContent {
+	margin-left: 200px;
+}
+
+iframe {
+	width: 100%;
+	height: 100%;
+}
+
+html, body,.main{
+	height: 100%;
+}
+
+body.none-sidebar .navbar-side {
+	display: none;
+}
+
+body.none-sidebar .J_mainContent {
+	margin-left: 0;
+}
+
+
+body.big-sidebar .content{
+	display: none;
+}
+
+body.big-sidebar .navbar-side {
+	display: block;
+	width: 100%;
+}
+
+@media (min-width: 768px){
+	.navbar-header {
+	    width: 200px;
+	    height: 50px;
+	}
+	
+	.login {
+		display: none;
+	}
+	
+	/*body.navbar-side {
+		display: block;
+	}*/
+	
+}
+
+@media (max-width: 768px){
+	.navbar-main {
+		display: none;
+	}
+}
+
+

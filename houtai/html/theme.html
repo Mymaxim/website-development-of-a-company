@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>论坛主题管理</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
+    <!-- <script src="../js/jquery.min.js"></script> -->
+    <script src="../js/jquery-3.1.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap-table.min.js"></script>
+    <script src="../js/bootstrap-table-zh-CN.js"></script>
+    <script src="../js/bootstrap-table-locale-all.min.js"></script>
+    <style>
+        .my-table-tool{margin-bottom:30px;}
+        .btn-info{margin-top: 2px;}
+        .panel-title {
+            margin-top: 20px;
+            font-size: 25px;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 main">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><i class = "fa fa-pencil-square-o"></i> 主题管理</h2>
+                </div>
+                <div class="panel-body">
+                    <!-- <div class="row my-table-tool">
+                        <div class="col-md-12">
+                            <div class="btn-group" id="toolBar" role = "group">
+                                <button type="button" id="btn_trash" class="btn btn-outline btn-default"><i class="glyphicon glyphicon-trash"></i></button>
+                                <input type="text" class="form-control" placeholder="搜索" style="display:inline-block; width:200px; height:30px; margin-left:10px;">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="table-responsive table-bordered">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                   <!--  <th><input type="checkbox"></th> -->
+                                    <th>ID</th>
+                                    <th>用户</th>
+                                    <th>主题</th>
+                                    <th>时间</th>
+                                    <th>内容</th>
+                                    <th>评论数量</th>
+                                    <th>点赞数量</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>1</td>
+                                    <td>456</td>
+                                    <td>123456</td>
+                                    <td>123</td>
+                                    <td>
+                                        <button class="btn btn-primary">删除</button>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $.post('../api/theme.php',function(data){
+            var res = JSON.parse(data);
+            $('tbody').append(res.map(function(item){
+                return `<tr class="${item.id}">
+                            <td>${item.id}</td>
+                            <td>${item.username}</td>
+                            <td>${item.theme}</td>
+                            <td>${item.time}</td>
+                            <td>${item.content}</td>
+                            <td>${item.comqty}</td>
+                            <td>${item.likeqty}</td>
+                            <td>
+                            <button class="btn btn-primary">删除</button></td>
+                        </tr>`
+            }))
+        })
+        
+        function confirmDel(){ 
+            var msg = "您确定要删除这主题吗"; 
+            if (confirm(msg)){ 
+              return true; 
+            }else{ 
+              return false; 
+            } 
+        }
+        $('tbody').on('click','td>.btn-primary',function(){
+            let res = confirmDel();
+            if(res){
+                $(this).parent().parent().remove();
+                let idx = $(this).parent().parent()[0].className*1; 
+                console.log(idx);
+                $.post('../api/theme.php',{idx:idx});
+                
+            }
+        })
+     
+        // $("#btn_trash").click(function(){
+        //     $("tbody td input:nth-child(1)").each(function() {
+        //         if($(this).prop('checked'))
+        //             $(this).parent().parent().remove();
+        //             $.post('../api/theme.php',{all:"all"});
+        //     });
+        // });
+    }); 
+</script>   
+</body>
+</html>

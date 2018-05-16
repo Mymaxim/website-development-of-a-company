@@ -1,0 +1,17 @@
+body{background: #f9f9f9;margin: 0;padding:0;}
+.register,.login{width: 800px;height: 570px;background-color: #fff;margin: 0 auto;padding-top: 30px;}
+.register i,.login i{display: block;width: 60px;height: 60px;background: url(../images/GDlogo.png) no-repeat 0 center;border-radius: 50%;margin: 0 auto;}
+.register h3,.login h3{font-size: 28px;font-weight: normal;color: #333;line-height: 1.2;text-align: center;}
+.login p a{color: #9d9d9d;}
+.reg,.log{width: 370px;margin: 0 auto;}
+.reg label,.reg label{display: inline-block;width: 100px;text-align: right;font-size: 16px;color:#333;}
+.reg input,.reg .code{width: 230px;height: 20px;line-height: 20px;padding: 6px;display: inline-block;margin-top: 16px;}
+.reg .code{width: 100px;height: 24px;text-align: center; background-color: #f7efed;}
+#username{margin-top: 0;}
+#vCode{width: 114px;}
+.tips{display: none;height: 22px;line-height: 22px;font-size:12px;padding-left: 100px;}
+#btn_reg,#btn_login{display: block;width: 330px;height: 42px;background-color: #ff6700;margin-top: 15px;border: 1px solid rgba(186,186,186,0.3);color: #fff;margin: 20px auto;line-height: 42px;text-align: center;font-size: 14px;cursor: pointer;overflow: hidden;}
+p{text-align: center;color: #9d9d9d;font-size: 14px;font-family: arial,"Hiragino Sans GB", "Microsoft YaHei","微軟正黑體","儷黑 Pro", sans-serif;}
+p span{color: #333;font-weight:bold ;cursor:pointer;}
+#GD_footer p{padding-top: 0;font-size: 12px;}
+#GD_footer p span{color: #9d9d9d;font-weight: normal;}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>产品管理</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+    .my-table-tool {
+        margin-bottom: 30px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">产品管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row my-table-tool">
+                            <div class="col-md-12">
+                                <div style="float:left">
+                                    <input type="text" class="form-control" placeholder="搜索">
+                                </div>
+                                <button type="submit" class="btn btn-info">button</button>
+                                <button type="button" class="btn pull-right btn-danger" data-toggle="modal" href='#myModal'>添加</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive table-bordered">
+                            <table class="table table-hover table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width:150px;">
+                                            <select name="类别" style="width:100%;border:none;outline:none;">
+                                                 <option value="类别">类别选项</option>
+                                                 <option value="PS修图" id="c1">PS修图</option>
+                                                 <option value="LOGO设计" id="c2">LOGO设计</option>
+                                                 <option value="广告设计"  id="c3">广告设计</option>
+                                                 <option value="海报设计" id="c4">海报设计</option>
+                                           </select>
+                                        </th>
+                                        <th>名称</th>
+                                        <th>内容</th>
+                                        <th>图片</th>
+                                        <th>ID</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>PS修图</td>
+                                        <td>山清水秀</td>
+                                        <td>今天的天气真好又来到了一年四季之最的春天，万物复苏，鸟语花香</td>
+                                        <td></td>
+                                        <td>1</td>
+                                        <td>
+                                            <button class="btn btn-warning">编辑</button>
+                                            <button class="btn btn-primary">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">操作</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="POST" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="modal-leibie" class="col-sm-2 control-label">类别</label>
+                            <div class="col-sm-10">
+                                 <select name="类别" class="form-control" id="modal-leibie" required="required">
+                                     <option value="PS修图" id="d1">PS修图</option>
+                                     <option value="LOGO设计" id="d2">LOGO设计</option>
+                                     <option value="广告设计" id="d3">广告设计</option>
+                                     <option value="海报设计" id="d4">海报设计</option>
+                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-mc" class="col-sm-2 control-label">名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="modal-mc" placeholder="名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-img" class="col-sm-2 control-label">图片</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="file_input" name="img">
+                                <div id="showimg">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-nr" class="col-sm-2 control-label">内容</label>
+                            <div class="col-sm-10">
+                                <textarea placeholder="请输入内容！" id="modal-nr" class="form-control" rows="3" required="required"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-id" class="col-sm-2 control-label">ID</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="modal-id" placeholder="ID">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('tbody').on('click', 'td>.btn-primary', function() {
+            $(this).parent().parent().remove();
+            console.log( $('tbody').children().length)
+            if( $('tbody').children().length !== 0){
+            	$('tbody').children().each(function(index, el) {
+            		console.log(index,el)
+            		$(el).children().eq(0).text(index+1)
+            	});
+            }
+        })
+        $('tbody').on('click', 'td>.btn-warning', function() {
+            $('#myModal').modal('show');
+            var tds = $(this).parent().parent().children();
+            console.log(tds)
+            var leibie = tds.eq(1).text();
+            var mc = tds.eq(2).text();
+            var nr = tds.eq(3).text();
+            var nr = tds.eq(3).text();
+            $('#modal-leibie').val(leibie)
+            $('#modal-mc').val(mc)
+            $('#modal-nr').val(nr);
+            $('#myModal').data({ 'tds': tds }) //数据存储
+        });
+
+        $('.modal-footer>.btn-primary').click(function() {
+            $("#myModal").modal('hide')
+            var name = $('#modal-name').val();
+            var url = $('#modal-url').val();
+            var weight = $('#modal-weight').val();
+
+            var tds = $("#myModal").data('tds') //get
+            console.log(tds)
+
+            if (tds === undefined) {
+                var trCreate = document.createElement("tr");
+                $(trCreate).append('<td>' + ($('tbody tr').length + 1) + '</td>');
+                $(trCreate).append('<td>' + name + '</td>');
+                $(trCreate).append('<td>' + url + '</td>');
+                $(trCreate).append('<td>' + weight + '</td>');
+                $(trCreate).append(` <td>
+                                            <button class="btn btn-warning">编辑</button>
+                                            <button class="btn btn-primary">删除</button>
+                                        </td>`);
+                $('tbody').append(trCreate)
+
+            } else {
+
+                tds.eq(1).text(name)
+                tds.eq(2).text(url)
+                tds.eq(3).text(weight)
+
+                $("#myModal").removeData('tds')
+            }
+        });
+
+        $('.my-table-tool .btn-danger').click(function() {
+        	$('#myModal :input').val('')
+        });
+
+    });
+     !function (a,b){
+        var showimg = document.getElementById("showimg");
+        var imginput= document.getElementById("file_input");
+        if(typeof FileReader==='undefined'){
+            showimg.innerHTML="抱歉，你的浏览器不支持FileReader";
+            imginput.setAttribute('disabled','disabled')
+        }else{
+            imginput.addEventListener('change',function(){
+                var file = this.files[0];
+                if(!/image\/\w+/.test(file.type)){
+                    alert("请确保文件为图像类型");
+                    return false;
+                }
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload=function(e){
+                    showimg.innerHTML='<img src"'+this.result+'"alt=""/>'
+                }
+            },false);
+        }
+     }
+    </script>
+</body>
+
+</html>

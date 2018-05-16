@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/css0.css" />
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top nav-top clear">
+			<div class="navbar-header navbar-tittle clear">
+				<div class="sidebar-toggle-box pull-left">
+					<div class="fa fa-bars"></div>
+				</div>
+				<div class="logo pull-left">
+					<a href="home.html"><img src="img/GDlogo.png" height="30" width="30"/> &nbsp;&nbsp;&nbsp;<b>GE DIAO</b></a>
+				</div>
+				<!-- <button class="btn btn-default login pull-right">
+					Log out
+				</button> -->
+			</div>
+			<div class="collapse navbar-collapse navbar-main" id="bs-example-navbar-collapse-1">
+				<!-- <form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+				</form> -->
+				<ul class="nav navbar-nav navbar-right logout">
+					<li>
+						<button class="btn btn-default" id='logout'>
+							<a href="index.html">Log out</a>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="row main">
+			<nav class="navbar navbar-default navbar-side" role="navigation">
+				<div class="sidebar-collapse navbar-ex1-collapse">
+					<ul class="nav" id="side-menu">
+						<li class="active"><a href="html/home.html" class="J_menuItem"><i class = "fa fa-home"></i>主页</a></li>
+						<li><a href="#"><i class = "fa fa-user"></i>用户管理<i class="fa fa-chevron-down down"></i></a>
+							<ul class="nav dropdown">
+								<li><a href="html/admin.html" class="J_menuItem myUser">管理员</a></li>
+								<li><a href="html/user.html" class="J_menuItem myUser">网站用户</a></li>
+							</ul>
+						</li>
+						<li><a href="html/img.html" class="J_menuItem"><i class = "fa fa-picture-o"></i>轮播图管理</a></li>
+						<li><a href="html/news.html" class="J_menuItem"><i class = "fa fa-newspaper-o"></i>新闻管理</a></li>
+						<li><a href="html/products.html" class="J_menuItem"><i class = "fa fa-shopping-cart"></i>产品管理</a></li>
+						<li><a href="html/theme.html" class="J_menuItem"><i class = "fa fa-pencil-square-o"></i>主题管理</a></li>
+						<li><a href="html/comments.html" class="J_menuItem"><i class = "fa fa-commenting"></i>评论管理</a></li>
+						<li><a href="html/books.html" class="J_menuItem"><i class = "fa fa-book"></i>知识管理</a></li>
+						<li><a href="html/info.html" class="J_menuItem"><i class = "fa fa-info"></i>资讯管理</a></li>
+						
+						<!-- <li class="line"></li> -->
+					</ul>
+				</div>
+			</nav>
+
+            <div class="row J_mainContent" id="content-main">
+                <iframe id="J_iframe" width="100%" height="100%" src="html/home.html" frameborder="0" data-id="index_v1.html" seamless></iframe>
+            </div>
+		</div>
+
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/metisMenu/jquery.metisMenu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var cookies = document.cookie;
+			console.log(cookies.length);
+			if(cookies.length<0 || cookies==''){
+				window.location.href = 'index.html';
+			}
+			$('#logout').on('click',function(){
+				document.cookie = '';
+				// window.location.href = 'index.html';
+			})
+			$(function() {
+				$('#side-menu').metisMenu();
+			})
+
+			$(window).bind("load resize", function() {
+				if ($(this).width() < 768) {
+					$('body').addClass("none-sidebar");
+				} else {
+					$('body').removeClass("none-sidebar");
+				}
+			})
+
+			$('.sidebar-toggle-box').click(function() {
+				if ($(window).width() < 768) {
+					$("body").toggleClass("big-sidebar");
+				} else {
+					$("body").toggleClass("none-sidebar");
+				}
+			})
+			
+			$('.J_menuItem').on('click',function() {
+				var url = $(this).attr('href');
+				$('#J_iframe').attr('src', url);
+				if($(window).width() < 768) {
+					$('body').removeClass("big-sidebar");
+				}
+				return false;
+			});
+		</script>
+	</body>
+
+</html>
